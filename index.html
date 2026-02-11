@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Be My Valentine 💘</title>
+
+<style>
+  body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: #ffe6ee;
+    font-family: Arial, sans-serif;
+  }
+
+  h1 {
+    text-align: center;
+    margin-top: 40px;
+  }
+
+  #yes, #no {
+    position: absolute;
+    padding: 16px 30px;
+    font-size: 22px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  #yes {
+    background: #ff4d6d;
+    color: white;
+    left: 40%;
+    top: 55%;
+    z-index: 2;
+  }
+
+  #no {
+    background: #ddd;
+    left: 55%;
+    top: 55%;
+    z-index: 3;
+  }
+</style>
+</head>
+
+<body>
+<h1>Will you be my Valentine? 💖</h1>
+
+<button id="yes">YES 💖</button>
+<button id="no">NO 🙃</button>
+
+<script>
+  const noMessages = [
+    "Are you sure? 🥺",
+    "Why not? 🤔",
+    "It will make me sad… 😞",
+    "Please? 🙏",
+    "I'll cry 😢💔",
+    "Last chance! 😭"
+  ];
+
+  let tries = 0;
+  const maxTries = 7;
+
+  const yes = document.getElementById("yes");
+  const no = document.getElementById("no");
+
+  function runAway() {
+    if (tries >= maxTries) return;
+
+    tries++;
+
+    // Change NO text + emoji
+    if (tries <= noMessages.length) {
+      no.textContent = noMessages[tries - 1];
+    }
+
+    // Random new position
+    const x = Math.random() * 80 + 5;
+    const y = Math.random() * 60 + 25;
+    no.style.left = x + "vw";
+    no.style.top = y + "vh";
+
+    // Grow YES
+    yes.style.transform = `scale(${1 + tries * 0.3})`;
+
+    // Final takeover
+    if (tries === maxTries) {
+      yes.style.left = "5vw";
+      yes.style.top = "5vh";
+      yes.style.width = "90vw";
+      yes.style.height = "90vh";
+      yes.style.fontSize = "48px";
+      yes.textContent = "YES 💖💘";
+      no.style.zIndex = "1"; // hide behind YES
+    }
+  }
+
+  no.addEventListener("mouseenter", runAway);
+  no.addEventListener("click", runAway);
+
+  yes.addEventListener("click", () => {
+    document.body.innerHTML = `
+      <div style="
+        width:100vw;
+        height:100vh;
+        background:#ff4d6d;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:white;
+        font-size:50px;
+        text-align:center;">
+        YAY 💖💖💖<br>Happy Valentine’s!
+      </div>
+    `;
+  });
+</script>
+</body>
+</html>
